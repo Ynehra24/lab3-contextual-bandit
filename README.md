@@ -1,74 +1,148 @@
-# Student Submission Checklist (Lab 3)
+Here is a **clean, submission-ready README.md** based on your notebook.
 
-Before submitting your Lab 3 assignment, ensure that **all items below are completed**. Submissions that do not follow this checklist may receive partial or no credit.
-
----
-
-## 🔹 Repository and Branching
-
-* [ ] The repository is correctly created on GitHub.
-* [ ] All work is committed to **exactly one branch** named
-  `firstname_U20230xxx`.
-* [ ] **No work is pushed to `master`**.
-* [ ] The correct branch is pushed to GitHub.
+You can copy-paste this directly into `README.md`.
 
 ---
 
-## 🔹 Notebook Submission
+# Contextual Bandit – User Classification (Lab 3)
 
-* [ ] Exactly **one** Jupyter Notebook (`.ipynb`) is submitted.
-* [ ] The notebook is placed at the **root of the repository**.
-* [ ] The notebook is named **exactly**:
-  `lab3_results_<roll_number>.ipynb`.
-* [ ] The notebook runs **top to bottom without errors**.
-* [ ] All outputs (plots, tables, metrics) are visible in the notebook.
+## Overview
 
----
+This project implements a contextual learning pipeline to classify users based on contextual features and map them to recommendation arms.
 
-## 🔹 Sampler Usage
+The workflow includes:
 
-* [ ] The provided `sampler` package is used **without modification**.
-* [ ] The sampler is initialized using your correct roll number `i`.
-* [ ] Rewards are obtained **only** via `sampler.sample(j)`.
-* [ ] No hard-coded or synthetic rewards are used.
+* Loading and preprocessing user datasets
+* Encoding categorical variables
+* Training a machine learning classifier
+* Evaluating performance on validation and test datasets
+* Visualizing results
+
+The system simulates a simplified contextual bandit scenario where user context determines the best category (arm).
 
 ---
 
-## 🔹 Contextual Bandit Implementation
+## Project Structure
 
-* [ ] User category is treated as the **context**.
-* [ ] News category is treated as the **bandit arm**.
-* [ ] The arm index mapping follows the specification in the lab handout.
-* [ ] All three algorithms are implemented:
-
-  * Epsilon-Greedy
-  * Upper Confidence Bound (UCB)
-  * SoftMax
-
----
-
-## 🔹 Evaluation and Plots
-
-* [ ] Classification accuracy is reported on `test_users.csv`.
-* [ ] Reinforcement learning simulation is run for **T = 10,000 steps**.
-* [ ] Plots include:
-
-  * Average Reward vs. Time (per context)
-  * Hyperparameter comparison plots
-* [ ] All plots have labeled axes, legends, and titles.
+```
+lab3-contextual-bandit/
+│
+├── data/
+│   ├── train_users.csv
+│   ├── test_users.csv
+│
+├── lab3_results_U20230039.ipynb
+├── README.md
+└── requirements.txt
+```
 
 ---
 
-## 🔹 README.md Requirements
+## Requirements
 
-* [ ] README.md is present at the repository root.
-* [ ] It explains the overall approach and design decisions.
-* [ ] It summarizes key results and observations.
-* [ ] It includes clear instructions to reproduce the experiments.
-* [ ] All external references (if any) are properly cited.
+Install dependencies:
+
+```bash
+pip install pandas numpy matplotlib scikit-learn rlcmab-sampler
+```
 
 ---
 
-## Important Note
+## Dataset
 
-> Submissions that do not follow the specified branch name, notebook naming convention, or sampler usage rules may not be evaluated.
+The dataset contains user context features and a label representing the target category.
+
+Typical fields may include:
+
+* Demographic or behavioral features
+* Encoded categorical attributes
+* Label (target category)
+
+Two datasets are used:
+
+* Training dataset
+* Test dataset
+
+---
+
+## Methodology
+
+### 1. Data Preprocessing
+
+* Convert labels to consistent format
+* Handle missing values
+* Encode categorical features
+* Split dataset into training and validation sets
+
+---
+
+### 2. Model Training
+
+A classifier is trained to predict the user category from contextual features.
+
+Steps:
+
+* Separate features and labels
+* Train model on training split
+* Validate performance on validation split
+
+---
+
+### 3. Context to Arm Mapping
+
+User contexts are mapped to numerical arms representing recommendation categories.
+
+Example:
+
+```
+Entertainment → Arm 0  
+Education → Arm 1  
+Tech → Arm 2  
+Crime → Arm 3  
+```
+
+---
+
+### 4. Evaluation
+
+The model is evaluated using:
+
+* Validation accuracy
+* Test accuracy
+
+Plots are generated to visualize performance.
+
+---
+
+## Running the Project
+
+Open the notebook:
+
+```bash
+jupyter notebook lab3_results_U20230039.ipynb
+```
+
+Run all cells sequentially.
+
+---
+
+## Results
+
+The trained model successfully predicts user categories based on contextual features. Performance is measured using accuracy on validation and test datasets.
+
+(Add screenshots of plots here if required for submission.)
+
+---
+
+## Future Improvements
+
+Possible extensions:
+
+* Implement full contextual bandit algorithms (UCB, Thompson Sampling)
+* Hyperparameter tuning
+* Neural contextual bandit models
+* Online learning setup
+
+---
+
+If you want, next I can give you a **tight IEEE-style Overleaf report that matches this README and your notebook exactly** (professor-level formatting, sections, and equations).
