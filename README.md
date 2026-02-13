@@ -1,8 +1,3 @@
-Here is a **clean, submission-ready README.md** based on your notebook.
-
-You can copy-paste this directly into `README.md`.
-
----
 
 # Contextual Bandit – User Classification (Lab 3)
 
@@ -142,7 +137,3 @@ Possible extensions:
 * Hyperparameter tuning
 * Neural contextual bandit models
 * Online learning setup
-
----
-
-If you want, next I can give you a **tight IEEE-style Overleaf report that matches this README and your notebook exactly** (professor-level formatting, sections, and equations).
