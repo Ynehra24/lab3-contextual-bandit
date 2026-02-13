@@ -1,23 +1,46 @@
-
-# Contextual Bandit – User Classification (Lab 3)
+# Contextual Bandit – User Classification and News Recommendation
 
 ## Overview
 
-This project implements a contextual learning pipeline to classify users based on contextual features and map them to recommendation arms.
+This project implements a **contextual bandit-based recommendation system** that predicts user contexts and learns to recommend appropriate news categories using reinforcement learning techniques.
 
-The workflow includes:
+The pipeline performs:
 
-* Loading and preprocessing user datasets
-* Encoding categorical variables
-* Training a machine learning classifier
-* Evaluating performance on validation and test datasets
-* Visualizing results
+1. Data loading and preprocessing
+2. Feature engineering and encoding
+3. Context classification using supervised learning
+4. Context-to-arm mapping
+5. Bandit learning using multiple strategies
+6. Reward evaluation and visualization
+7. News article recommendation
 
-The system simulates a simplified contextual bandit scenario where user context determines the best category (arm).
+The system simulates a real-world scenario where user behavior and demographic features are used to personalize content recommendations.
 
 ---
 
-## Project Structure
+# System Architecture
+
+The system follows this pipeline:
+
+```
+User Dataset
+     ↓
+Preprocessing & Feature Engineering
+     ↓
+Context Classifier
+     ↓
+Context → Arm Mapping
+     ↓
+Bandit Algorithm (ε-Greedy / UCB / Softmax)
+     ↓
+Reward Simulation
+     ↓
+Recommendation Engine
+```
+
+---
+
+# Project Structure
 
 ```
 lab3-contextual-bandit/
@@ -25,6 +48,7 @@ lab3-contextual-bandit/
 ├── data/
 │   ├── train_users.csv
 │   ├── test_users.csv
+│   ├── news_articles_updated.csv
 │
 ├── lab3_results_U20230039.ipynb
 ├── README.md
@@ -33,7 +57,7 @@ lab3-contextual-bandit/
 
 ---
 
-## Requirements
+# Installation
 
 Install dependencies:
 
@@ -43,97 +67,287 @@ pip install pandas numpy matplotlib scikit-learn rlcmab-sampler
 
 ---
 
-## Dataset
+# Dataset Description
 
-The dataset contains user context features and a label representing the target category.
+The dataset contains user context features including:
 
-Typical fields may include:
+* Age
+* Income
+* Click behavior
+* Purchase amount
+* Session duration
+* Engagement score
+* Transactions
+* Device and network features
+* Region and subscription information
 
-* Demographic or behavioral features
-* Encoded categorical attributes
-* Label (target category)
-
-Two datasets are used:
-
-* Training dataset
-* Test dataset
-
----
-
-## Methodology
-
-### 1. Data Preprocessing
-
-* Convert labels to consistent format
-* Handle missing values
-* Encode categorical features
-* Split dataset into training and validation sets
+Each row represents a user with a labeled context category.
 
 ---
 
-### 2. Model Training
+# Data Preprocessing
 
-A classifier is trained to predict the user category from contextual features.
+The preprocessing pipeline performs:
 
-Steps:
+### Label Normalization
 
-* Separate features and labels
-* Train model on training split
-* Validate performance on validation split
+All labels are converted to lowercase to maintain consistency.
+
+### Missing Value Handling
+
+Missing values are filled using forward fill.
+
+### Encoding
+
+Categorical columns are encoded using LabelEncoder.
+
+### Feature Binning
+
+Continuous features such as:
+
+* income
+* clicks
+* purchase amount
+* age
+
+are discretized to stabilize learning.
+
+### Feature Engineering
+
+Two additional features are created:
+
+```
+income_per_click
+spend_ratio
+```
 
 ---
 
-### 3. Context to Arm Mapping
+# Screenshot: Dataset Preview
 
-User contexts are mapped to numerical arms representing recommendation categories.
+(Add screenshot here showing dataframe head)
 
 Example:
 
 ```
-Entertainment → Arm 0  
-Education → Arm 1  
-Tech → Arm 2  
-Crime → Arm 3  
+dataframe.head()
+```
+
+Add screenshot below:
+
+![Dataset Preview](images/dataset_preview.png)
+
+---
+
+# Context Classification
+
+A supervised learning model is trained to classify users into context categories.
+
+Models explored:
+
+* Decision Tree
+* Logistic Regression (optional alternative)
+
+The final configuration uses a Decision Tree classifier with controlled depth to prevent overfitting.
+
+---
+
+# Screenshot: Training Output
+
+(Add screenshot showing train and validation accuracy)
+
+Example output:
+
+```
+Train Accuracy: ...
+Validation Accuracy: ...
+```
+
+![Training Accuracy](images/training_accuracy.png)
+
+---
+
+# Context to Arm Mapping
+
+Each predicted context is mapped to an action space representing news categories.
+
+Example mapping:
+
+```
+user_1 → Context 0
+user_2 → Context 1
+user_3 → Context 2
+```
+
+Each context contains 4 possible actions (arms).
+
+---
+
+# Bandit Algorithms Implemented
+
+Three exploration strategies are implemented.
+
+---
+
+## 1. Epsilon-Greedy
+
+Chooses:
+
+* Random arm with probability ε
+* Best arm otherwise
+
+Used to balance exploration and exploitation.
+
+---
+
+## 2. Upper Confidence Bound (UCB)
+
+Chooses actions using:
+
+```
+Q(a) + C * sqrt(log(t) / N(a))
+```
+
+Encourages exploration of uncertain arms.
+
+---
+
+## 3. Softmax Exploration
+
+Chooses actions probabilistically:
+
+```
+P(a) = exp(Q(a)/τ) / Σ exp(Q(i)/τ)
+```
+
+Allows smoother exploration behavior.
+
+---
+
+# Reward Simulation
+
+Rewards are generated using a synthetic reward sampler.
+
+The system tracks:
+
+* Rewards over time
+* Average reward per context
+* Estimated Q-values
+
+---
+
+# Screenshot: Average Reward Plot (Epsilon-Greedy)
+
+(Add screenshot of reward vs time graph)
+
+![Epsilon Greedy Rewards](images/epsilon_rewards.png)
+
+---
+
+# Screenshot: Average Reward Plot (UCB)
+
+(Add screenshot here)
+
+![UCB Rewards](images/ucb_rewards.png)
+
+---
+
+# Screenshot: Average Reward Plot (Softmax)
+
+(Add screenshot here)
+
+![Softmax Rewards](images/softmax_rewards.png)
+
+---
+
+# Strategy Comparison
+
+A final comparison plot shows average reward for all strategies.
+
+---
+
+# Screenshot: Strategy Comparison Plot
+
+(Add screenshot here)
+
+![Strategy Comparison](images/strategy_comparison.png)
+
+---
+
+# Recommendation Engine
+
+After training:
+
+1. A user is sampled
+2. Context is predicted
+3. Best arm is selected
+4. A news article is recommended
+
+---
+
+# Screenshot: Recommendation Output
+
+(Add screenshot showing predicted context and article output)
+
+![Recommendation Output](images/recommendation.png)
+
+---
+
+# Results and Observations
+
+Key findings:
+
+* Classifier achieves strong validation accuracy
+* Bandit algorithms converge over time
+* UCB typically converges faster
+* Softmax produces smoother reward curves
+
+---
+
+# Limitations
+
+* Synthetic rewards rather than real user feedback
+* Offline simulation instead of online learning
+* Limited feature engineering
+
+---
+
+# Future Improvements
+
+Possible enhancements:
+
+* Neural contextual bandits
+* Real-time recommendation pipeline
+* Deep learning models
+* Larger article datasets
+* Personalization using embeddings
+
+---
+
+# How to Add Screenshots (Important)
+
+### Step 1: Create a folder
+
+Inside your repo:
+
+```
+images/
 ```
 
 ---
 
-### 4. Evaluation
+### Step 2: Save plots in notebook
 
-The model is evaluated using:
-
-* Validation accuracy
-* Test accuracy
-
-Plots are generated to visualize performance.
-
----
-
-## Running the Project
-
-Open the notebook:
-
-```bash
-jupyter notebook lab3_results_U20230039.ipynb
+```python
+plt.savefig("images/epsilon_rewards.png")
 ```
 
-Run all cells sequentially.
-
 ---
 
-## Results
+### Step 3: Add to README
 
-The trained model successfully predicts user categories based on contextual features. Performance is measured using accuracy on validation and test datasets.
-
-(Add screenshots of plots here if required for submission.)
+```
+![Epsilon Rewards](images/epsilon_rewards.png)
+```
 
 ---
-
-## Future Improvements
-
-Possible extensions:
-
-* Implement full contextual bandit algorithms (UCB, Thompson Sampling)
-* Hyperparameter tuning
-* Neural contextual bandit models
-* Online learning setup
