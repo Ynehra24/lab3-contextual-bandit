@@ -1,20 +1,19 @@
 # Contextual Bandit – User Classification and News Recommendation
 
 ## Overview
+This python implementation of a **contextual bandit based system for recommendations** preducts user context and learns to recommend the appropriate news category to a user through reinforcement learning techniques
 
-This project implements a **contextual bandit-based recommendation system** that predicts user contexts and learns to recommend appropriate news categories using reinforcement learning techniques.
+In this pipeline we perform the following steps:
 
-The pipeline performs:
+1. Data loading, then preprocessing
+2. Encoding of features
+3. Classification and context learning
+4. Mapping context to the arms
+5. Bandit learns using multiple strategies
+6. Evaluation and comparison of strategies
+7. Recommendation of news articles
 
-1. Data loading and preprocessing
-2. Feature engineering and encoding
-3. Context classification using supervised learning
-4. Context-to-arm mapping
-5. Bandit learning using multiple strategies
-6. Reward evaluation and visualization
-7. News article recommendation
-
-The system simulates a real-world scenario where user behavior and demographic features are used to personalize content recommendations.
+This simulates real-world scenarios where user behavior and demographic features are used to personalize content recommendation.
 
 ---
 
@@ -210,23 +209,17 @@ The system tracks:
 
 # Screenshot: Average Reward Plot (Epsilon-Greedy)
 
-(Add screenshot of reward vs time graph)
-
 ![Epsilon Greedy Rewards](images/epsilon_greedy.png)
 
 ---
 
 # Screenshot: Average Reward Plot (UCB)
 
-(Add screenshot here)
-
 ![UCB Rewards](images/final_UCB.png)
 
 ---
 
 # Screenshot: Average Reward Plot (Softmax)
-
-(Add screenshot here)
 
 ![Softmax Rewards](images/final_softmax.png)
 
@@ -239,8 +232,6 @@ A final comparison plot shows average reward for all strategies.
 ---
 
 # Screenshot: Strategy Comparison Plot
-
-(Add screenshot here)
 
 ![Strategy Comparison](images/finalcomparison.png)
 
@@ -258,8 +249,6 @@ After training:
 ---
 
 # Screenshot: Recommendation Output
-
-(Add screenshot showing predicted context and article output)
 
 ![Recommendation Output](images/final_recommendation.png)
 
@@ -293,33 +282,5 @@ Possible enhancements:
 * Deep learning models
 * Larger article datasets
 * Personalization using embeddings
-
----
-
-# How to Add Screenshots (Important)
-
-### Step 1: Create a folder
-
-Inside your repo:
-
-```
-images/
-```
-
----
-
-### Step 2: Save plots in notebook
-
-```python
-plt.savefig("images/epsilon_rewards.png")
-```
-
----
-
-### Step 3: Add to README
-
-```
-![Epsilon Rewards](images/epsilon_rewards.png)
-```
 
 ---
