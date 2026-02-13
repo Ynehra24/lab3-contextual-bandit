@@ -112,33 +112,6 @@ Continuous features such as:
 
 are discretized to stabilize learning.
 
-### Feature Engineering
-
-Two additional features are created:
-
-```
-income_per_click
-spend_ratio
-```
-
----
-
-# Screenshot: Dataset Preview
-
-(Add screenshot here showing dataframe head)
-
-Example:
-
-```
-dataframe.head()
-```
-
-Add screenshot below:
-
-![Dataset Preview](images/dataset_preview.png)
-
----
-
 # Context Classification
 
 A supervised learning model is trained to classify users into context categories.
@@ -152,26 +125,20 @@ The final configuration uses a Decision Tree classifier with controlled depth to
 
 ---
 
-# Screenshot: Training Output
-
-(Add screenshot showing train and validation accuracy)
-
-Example output:
+# Training Output
+Our final output:
 
 ```
-Train Accuracy: ...
-Validation Accuracy: ...
+Train Accuracy: 92.87%
+Validation Accuracy: 85%
 ```
-
-![Training Accuracy](images/training_accuracy.png)
-
 ---
 
 # Context to Arm Mapping
 
 Each predicted context is mapped to an action space representing news categories.
 
-Example mapping:
+Our mapping:
 
 ```
 user_1 → Context 0
@@ -179,8 +146,13 @@ user_2 → Context 1
 user_3 → Context 2
 ```
 
-Each context contains 4 possible actions (arms).
-
+Each context contains 4 possible actions (arms) as follows -
+```
+Entertainment → 0
+Education → 1
+Tech → 2
+Crime → 3
+```
 ---
 
 # Bandit Algorithms Implemented
@@ -240,7 +212,7 @@ The system tracks:
 
 (Add screenshot of reward vs time graph)
 
-![Epsilon Greedy Rewards](images/epsilon_rewards.png)
+![Epsilon Greedy Rewards](images/epsilon_greedy.png)
 
 ---
 
@@ -248,7 +220,7 @@ The system tracks:
 
 (Add screenshot here)
 
-![UCB Rewards](images/ucb_rewards.png)
+![UCB Rewards](images/final_UCB.png)
 
 ---
 
@@ -256,7 +228,7 @@ The system tracks:
 
 (Add screenshot here)
 
-![Softmax Rewards](images/softmax_rewards.png)
+![Softmax Rewards](images/final_softmax.png)
 
 ---
 
@@ -270,7 +242,7 @@ A final comparison plot shows average reward for all strategies.
 
 (Add screenshot here)
 
-![Strategy Comparison](images/strategy_comparison.png)
+![Strategy Comparison](images/finalcomparison.png)
 
 ---
 
@@ -289,7 +261,7 @@ After training:
 
 (Add screenshot showing predicted context and article output)
 
-![Recommendation Output](images/recommendation.png)
+![Recommendation Output](images/final_recommendation.png)
 
 ---
 
